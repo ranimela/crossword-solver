@@ -49,6 +49,13 @@
   lengthInput.addEventListener('input', rebuildGrid);
   rebuildGrid();
 
+  posGrid.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') search();
+  });
+  poolInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') search();
+  });
+
   // ── Search ─────────────────────────────────────────────────────────────
   searchBtn.addEventListener('click', search);
 
@@ -86,16 +93,27 @@
       return;
     }
 
+    var MAX = 500;
+    var truncated = words.length > MAX;
+    var displayWords = truncated ? words.slice(0, MAX) : words;
+
     var count = document.createElement('div');
     count.className = 'result-count';
     count.textContent = words.length + ' תוצאות:';
     resultsEl.appendChild(count);
 
-    for (var i = 0; i < words.length; i++) {
+    for (var i = 0; i < displayWords.length; i++) {
       var div = document.createElement('div');
       div.className = 'result-word';
-      div.textContent = words[i];
+      div.textContent = displayWords[i];
       resultsEl.appendChild(div);
+    }
+
+    if (truncated) {
+      var more = document.createElement('div');
+      more.className = 'result-count';
+      more.textContent = '...ועוד ' + (words.length - MAX) + ' תוצאות נוספות';
+      resultsEl.appendChild(more);
     }
   }
 })();
