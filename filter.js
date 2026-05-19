@@ -1,10 +1,14 @@
 (function(exports) {
 
+  /**
+   * @param {string[]} lines
+   * @returns {Map<number, string[]>}
+   */
   function buildWordIndex(lines) {
     var index = new Map();
     for (var i = 0; i < lines.length; i++) {
       var word = lines[i];
-      if (!word) continue;
+      if (!word || !word.trim()) continue;
       var len = word.length;
       if (!index.has(len)) index.set(len, []);
       index.get(len).push(word);
@@ -12,6 +16,11 @@
     return index;
   }
 
+  /**
+   * @param {string} word
+   * @param {Map<number, string>} fixedPositions  1-based position → letter
+   * @returns {boolean}
+   */
   function matchesPositions(word, fixedPositions) {
     for (var entry of fixedPositions) {
       var pos = entry[0], letter = entry[1];
@@ -22,6 +31,13 @@
 
   // pool is an array of letters; applies only to unfixed positions
   // pinned letters are never drawn from the pool
+  /**
+   * @param {string} word
+   * @param {Map<number, string>} fixedPositions  1-based position → letter
+   * @param {string[]} pool
+   * @param {boolean} uniqueMode
+   * @returns {boolean}
+   */
   function matchesPool(word, fixedPositions, pool, uniqueMode) {
     if (!pool.length) return true;
     var poolCounts = new Map();
@@ -43,6 +59,14 @@
     return true;
   }
 
+  /**
+   * @param {Map<number, string[]>} wordsByLength
+   * @param {number} length
+   * @param {Map<number, string>} fixedPositions  1-based position → letter
+   * @param {string[]} pool
+   * @param {boolean} uniqueMode
+   * @returns {string[]}
+   */
   function filterWords(wordsByLength, length, fixedPositions, pool, uniqueMode) {
     var candidates = wordsByLength.get(length) || [];
     return candidates.filter(function(word) {

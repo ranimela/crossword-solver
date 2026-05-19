@@ -22,6 +22,11 @@ test('skips empty strings', () => {
   assert.equal(idx.has(0), false);
 });
 
+test('empty input returns empty index', () => {
+  const idx = buildWordIndex([]);
+  assert.equal(idx.size, 0);
+});
+
 // matchesPositions
 test('all positions match', () => {
   assert(matchesPositions('אבג', new Map([[1, 'א'], [3, 'ג']])));
@@ -58,8 +63,11 @@ test('unique mode: pinned positions do not consume from pool', () => {
   assert(matchesPool('אב', new Map([[1, 'א']]), ['ב'], true));
 });
 
-test('empty pool always passes', () => {
+test('empty pool passes in unique mode', () => {
   assert(matchesPool('שלום', new Map(), [], true));
+});
+
+test('empty pool passes in repeat mode', () => {
   assert(matchesPool('שלום', new Map(), [], false));
 });
 
