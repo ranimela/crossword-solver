@@ -16,14 +16,15 @@
       var lines = text.split('\n').map(function(l) { return l.trim(); })
         .filter(function(l) {
           // keep non-empty, unvoweled words only
-          return l.length > 0 && !/[ְ-ׇ]/.test(l);
+          return l.length > 0 && !/[ְ-ׇֽֿׁׂׅׄ]/.test(l);
         });
       wordsByLength = CrosswordFilter.buildWordIndex(lines);
       searchBtn.textContent = 'חפש';
       searchBtn.disabled = false;
       statusEl.textContent = 'מילון נטען — ' + lines.length + ' מילים';
     })
-    .catch(function() {
+    .catch(function(err) {
+      console.error('words.txt load failed:', err);
       statusEl.textContent = 'שגיאה: לא ניתן לטעון את המילון';
     });
 
@@ -53,7 +54,7 @@
 
   function search() {
     var length = parseInt(lengthInput.value, 10);
-    if (!length || length < 1) {
+    if (!length || length < 1 || length > 30) {
       statusEl.textContent = 'נא להזין אורך מילה תקין';
       return;
     }
