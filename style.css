@@ -41,6 +41,7 @@ input[type="number"] {
   border: 1px solid #bbb;
   border-radius: 4px;
   text-align: center;
+  direction: rtl;
 }
 
 input[type="text"] {
