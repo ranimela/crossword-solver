@@ -54,12 +54,15 @@ input[type="text"] {
   letter-spacing: 0.05em;
 }
 
-/* Position grid: RTL flex so box 1 appears at the right */
+/* Position grid: single RTL row, centered */
 .position-grid {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  justify-content: center;
   gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
 }
 
 .pos-input {
