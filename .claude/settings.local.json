@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node \"c:/Users/rmelamed/Projects/crossword-solver/test.js\")",
+      "Bash(node -e ' *)",
+      "Bash(node test.js)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git config *)",
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\rmelamed\\\\Projects\\\\crossword-solver\")",
+      "Bash(Select-Object Name)",
+      "Bash(git -C \"c:/Users/rmelamed/Projects/crossword-solver\" diff --stat 02eb612..4414154)",
+      "Bash(git -C \"c:/Users/rmelamed/Projects/crossword-solver\" log --oneline 02eb612..4414154)",
+      "Bash(python -m http.server 8080 --bind 127.0.0.1)",
+      "Bash(Start-Process \"http://127.0.0.1:8080\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://127.0.0.1:8080/)"
+    ]
+  }
+}
